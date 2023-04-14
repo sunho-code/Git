@@ -1,0 +1,41 @@
+pwd: print working directory
+/ : root directory
+~ : home directory
+cd: change directory
+명령어 --help : simple manual
+man 명령어 : manual	// 이건 안돼
+ls : 디렉토리 안의 파일 보기
+ls -l : list in long format
+touch: make empty file
+.filename : hidden file(touch로 파일 만들 때 파일 이름 앞에 .만 붙이면 숨겨진 파일이 됨
+ls -a: show all files(include hidden)
+ls -a -l   =   ls -al     =   ls -la
+mkdir : make directory
+./ : current directory	// 만약 one 디렉토리 안에 있는 two 디렉토리로 이동하려면 cd ./two  or  cd two(./생략가능)
+mv: move(rename)		// mv 파일(디렉토리)이름 경로/파일이름2(경로 생략하면 이름바꿈)
+rm -r : remove directory
+rm : remove file
+relative path vs absolute path(/c/Users/chamh/posix이런건 절대경로 ./posix , ../ 이런건 상대경로)
+../ : parent directory	// ..(/)생략해도 가능
+nano: text editor
+nano hello.txt : 현재 디렉토리의 hello.txt를 수정가능
+cat hello.txt : 현재 디렉토리의 hello.txt 내용을 커맨드라인에 출력해줌
+hello_world.txt 다 치기 귀찮을 때 hel까지 치고 tab키 누르면 자동완성됨.
+ls -R: 디렉토리 안에 있는 파일까지 모두 출력
+; : command seperator(한 줄에 모든 명령 입력 가능)
+&& : command seperator and operator(앞의 명령이 실행되어야만 뒤의 명령이 실행됨)
+위쪽 화살표 clear누르면 전에 사용했던 명령어가 입력됨
+clear: 지금까지 작성한 코드 모두 지우기
+*.patch: 디렉토리 안의 .patch라는 확장자가 붙은 모든 파일 (*.c, *.hwp, ...)
+ cp 파일경로 . : 현재 디렉토리(.)에 주어진 경로의 파일을 복사
+vim : 텍스트 에디터
+i 누르면 insert 모드
+:(콜론) 후 w(저장)q(종료)
+
+이후 학습
+shell script
+package menager
+top
+htop
+computer achitexture
+network
