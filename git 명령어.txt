@@ -1,0 +1,88 @@
+git의 역할 : version, backup, collaborate
+https://git-scm.com 에서 설치
+[working tree] -(git add)-[staging area(내부적으로 index파일)] -(git commit)- repository
+merge 시 branch들의 공통의 조상을 base라 하고 병합된 커밋을 merge commit이라고 한다.
+checkout은 HEAD가 어디를 가리키는 지 지정해준다 vs reset은 branch가 가리키는 커밋을 바꾸어서 이후의 커밋 삭제한다
+checkout 커밋아이디 처럼 HEAD가 branch가 아닌 버전을 가리키게 되는 상태를 detached 라 한다.
+HEAD - branch - commit
+
+sha1 online : 파일 내용의 hash 값을 알 수 있다
+명령어 --help : 설명 볼 수 있다
+git init : initialize repository
+git init . : 현재 디렉토리에 
+git init 디렉토리 이름: 디렉토리를 생성하여 시작
+.git : git repository(명령어는 아니고 git init을 하면 디렉토리 안에 만들어진다.)
+git status: working tree status
+git add: add to staging area (git add filename하면 하나의 파일이 staging area에 올라감. git add . -> 디렉토리 안의 모든 파일이 sta~에 올라감. git add 디렉토리 -> 이 디렉토리 안의 모든 파일이 sta~에 올라감.)
+git commit: create version(git commit -m "Message 1" 이런 식으로 하면 한번에 가능)
+git log: show version(나가려면 q)
+git log --stat: show version, 버전에 포함되어있는 파일
+git diff: show changes(워킹트리와 마지막 버전의 차이점)
+git reset --hard: 워킹트리 삭제
+git reset --hard 커밋아이디: 워킹트리 삭제, 그 버전으로 돌아가면서 그 버전 초과의 버전들은 모두 삭제됨(협업할 때 공유되지 않은 버전만 삭제해야함)
+git log -p: 버전의 차이점들
+git diff 커밋아이디..커밋아이디 : 두 버전 사이의 차이점 표시
+git checkout 커밋아이디: 이전 버전으로 돌아갈 수 있다.
+git checkout master: 최신버전으로 돌아간다.
+git revert 커밋아이디: 버전을 되돌린다. 그러나 삭제하지는 않는다. 새로운 버전이 생성되면서 '커밋아이디' 이전의 버전으로 돌아간다. '커밋아이디'의 버전에서의 변화만을 되돌리는 것(따라서 몇 버전 건너뛰어 revert하면 안된다.)
+git commit -am "" : -a는 add도 같이 해줌, 그런데 새로 만든 파일이라서 'untracked' 상태는 add 되지 않음(tracked 상태만 add해줌)
+git rm --cached 파일이름 : tracked 되어 버전관리 되고 있던 파일을 untracked 상태로 만들어줌(나중에 .gitignore 파일에 추가할 때 사용)
+git config --global core.editor "nano" : 기본 에디터 설정
+git log --all --graph --oneline: 로그를 보기 편하게 보여줌
+git commit --amend: 커밋 메세지 수정가능
+git config --global user.name : 한번만 설정하면 됨, .name 뒤에 이름, .email 뒤에 이메일
+
+git remote add origin 온라인 리포지토리 주소: 온라인-로컬 리포지토리 연결 (origin은 관습적인 원격저장소 이름)
+git remote: 연결된 온라인 리포지토리 보여줌
+git remote -v: 연결된 온라인 리포지토리 주소 보여줌
+git push: 로컬 리포지토리의 변경사항을 온라인 리포지토리에 저장(맨 처음에 이 로컬 리포지토리와 기본으로 연결하는 온라인 리포지토리가 이것이라는 걸 입력해주어야 함(그냥 나오는대로 붙여넣으면 됨)) github 로그인 해야함
+git push -f: 강제 푸시(깃허브에 잘못 커밋된 게 있으면 이렇게)
+git clone 온라인 리포지토리 주소 mkdir 디렉토리 이름: 온라인 리포지토리를 복제해온다. mkdir을 생략하면 현재 디렉토리 안에 온라인 리포지토리의 이름으로 디렉토리가 생성된다.
+git pull: 온라인 리포지토리에서 로컬 리포지토리로 
+git branch: 분기들을 나열해줌 별표되어 있는 곳이 헤드가 가리키는 곳임 -> 처음에는 master
+git branch apple: apple이라는 분기 생성
+git checkout apple: 헤드가 apple로 옮겨감
+git merge branchname: 현재 헤드가 있는 branch로 branchname이 병합됨
+git branch -d <branchname> : <branchname>의 branch 삭제
+git mergetool: GUI mergetool 사용가능-> p4merge는 conflict 일어날 시 add까지는 자동으로 해 줌, 그리고 파일이름.확장자.orig라는 파일이 새로 생기는데, 이는 conflict 당시의 파일을 저장해놓는 백업용이므로 변경이 확실하면 rm으로 지워도 됨.
+#비주얼스튜디오 mergetool 쓰기로 했다. vsdiffmerge도 위의 내용과 동일한 기능을 한다. 창이 뜨면 원하는 내용을 선택하고 저장한 후 끄면 add까지 해주고 .orig라는 파일도 생긴다. 
+
+merge 시 conflict 일어나면 그 파일 수동으로 고쳐서 add, commit 해주어야 함(commit 할 때 -m붙이지 않고 그냥 commit)
+2 way merge vs 3 way merge(base 기반으로 비교)
+
+$ git config --global diff.tool p4merge
+$ git config --global difftool.p4merge.path 'C:\Program Files\Perforce\p4merge.exe'
+$ git config --global merge.tool p4merge
+$ git config --global mergetool.p4merge.path 'C:\Program Files\Perforce\p4merge.exe'
+#~/.gitconfig에 저장됨
+cat ~/.gitconfig라고 치면 설정들을 볼 수 있다. (email, username, editor, diff/mergetool...)
+직접 저 파일에 들어가서 원하는대로 고치는게 제일 쉽다
+설정 지우려면 git config --unset user.name 등으로 할 수 있다
+
+
+git push -u origin master: 처음에 한번만 해주면됨. 원격 저장소의 master branch와 지역 저장소의 master branch를 페어링 해준다?(위에서 적은 거랑 똑같은 내용이다)(git push --set-upstream origin master를 줄인 모양인듯)
+github에서 public이든 private이든 리포지토리에 푸시하려면 승인이 필요하다. Settings에서 Manage access로 들어가서 collaborators를 초대할 수 있다.
+git fetch: 지역저장소의 master branch는 여전히 원래거를 가리킨다. 이 명령 다음에 git merge origin/master(원격 브랜치 이름) 하면 git pull과 똑같은 작업을 한다. 
+git fetch; git merge FETCH_HEAD 해도 된다. .git 디렉토리 안에 FETCH_HEAD라는 파일이 있는데 거기에 원격저장소에서 끌어온 가장 마지막 브랜치?를 저장해놓는다.
+patch란 오픈소스 작업에서 관리자?가 푸시권한을 주지 않은 사용자가 코드의 변경내용을 제안?하여 적용하고 싶을 때 .patch파일을 (이메일 등으로)보내준다.
+git format-patch 커밋아이디: 커밋아이디 이후에 바뀐 내용에 대한 패치파일(.patch)를 생성한다. 
+.patch 파일을 받은 관리자는 패치파일을 살펴보고 적용하든지 말든지 한다.
+git am -3 -i *.patch: a(pply)m(ailbox)라는 뜻. 3-way merge옵션, interactive(하나하나 패치할지 물어보기), 
+
+github에서 fork 하면 그 저장소를 내가 복사해서 가져올 수 있다.
+pull request도 patch와 유사한 기능을 한다. git이 제공한다기보다는 github 등 git hosting 서비스에서 제공하는 기능이다.
+권한이 없는 사용자가 fork를 통해 저장소를 복사해온후 바뀐 커밋이 있으면 compare를 통해 원래저장소와 비교하고 pull request를 관리자에게 보낸다. 관리자는 pull request를 살펴보고 merging 하든지 말든지 한다. 
+
+
+diff tool
+.gitignore(버전관리하고 싶지 않은 파일 이름을 이 파일 안에 적어넣는다)
+branch
+tag: 커밋아이디 대신
+
+SSH
+githosting 기능 제공
+git workflow
+cherry-pick
+rebase
+
+Gerrit
